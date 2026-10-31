@@ -268,7 +268,7 @@ export default function Hero() {
 
                             <div>
                                 <p className="text-xl font-black text-white">
-                                    2+ Years
+                                    1+ Years
                                 </p>
                                 <p className="text-xs font-medium text-gray-400">
                                     Experience
