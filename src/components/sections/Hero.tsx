@@ -1,141 +1,296 @@
+
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
-    Smile,
-    BriefcaseBusiness,
-    Layers3,
-    PartyPopper,
-    UserRound,
+    ArrowDown,
     ArrowRight,
+    BriefcaseBusiness,
+    Code2,
+    Layers3,
+    Mail,
     Sparkles,
+    UserRound,
 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const shortcuts = [
-    { label: "Me", icon: Smile, href: "#about", color: "#26a6a1" },
-    { label: "Projects", icon: BriefcaseBusiness, href: "#projects", color: "#35a65b" },
-    { label: "Skills", icon: Layers3, href: "#skills", color: "#8b6cf0" },
-    { label: "Fun", icon: PartyPopper, href: "#experience", color: "#df79b5" },
-    { label: "Contact", icon: UserRound, href: "#contact", color: "#d49a36" },
+    {
+        label: "About Me",
+        href: "#about",
+        icon: UserRound,
+    },
+    {
+        label: "Projects",
+        href: "#projects",
+        icon: Layers3,
+    },
+    {
+        label: "Skills",
+        href: "#skills",
+        icon: Code2,
+    },
+    {
+        label: "Experience",
+        href: "#experience",
+        icon: BriefcaseBusiness,
+    },
 ];
 
 export default function Hero() {
+    const shouldReduceMotion = useReducedMotion();
+
+    const fadeUp = {
+        hidden: { opacity: 0, y: 25 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1] as const,
+            },
+        },
+    };
+
     return (
         <section
             id="home"
-            className="relative flex min-h-[calc(100svh-76px)] items-center justify-center overflow-hidden px-4 py-16 sm:px-6"
+            className="relative isolate min-h-screen overflow-hidden bg-[#090d0b] text-white"
         >
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-            >
-                <div className="absolute left-1/2 top-[15%] h-[430px] w-[430px] -translate-x-1/2 rounded-full bg-[#c8f8ed]/25 blur-[110px]" />
-                <div className="absolute left-[8%] top-[28%] h-[280px] w-[280px] rounded-full bg-[#a7dfff]/20 blur-[100px]" />
-                <div className="absolute right-[8%] top-[25%] h-[320px] w-[320px] rounded-full bg-[#ff9ce5]/20 blur-[110px]" />
+            {/* Background effects */}
+            <div className="pointer-events-none absolute inset-0 -z-10">
+                <div className="absolute left-[-150px] top-[-120px] h-[400px] w-[400px] rounded-full bg-lime-400/10 blur-[120px]" />
+                <div className="absolute bottom-[-150px] right-[-100px] h-[400px] w-[400px] rounded-full bg-emerald-500/10 blur-[120px]" />
+
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:55px_55px]" />
+
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#090d0b]" />
             </div>
 
-            <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+            <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-5 pb-20 pt-32 sm:px-8 lg:px-12">
+                <div className="grid items-center gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
 
-                <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#a3e635]/60 bg-white/80 px-4 py-2 text-xs font-semibold text-[#527c27] shadow-sm backdrop-blur-md dark:border-lime-400/30 dark:bg-zinc-900/80 dark:text-lime-300">
-                    <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-400 opacity-60" />
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-lime-500" />
-                    </span>
-                    Available for freelance projects
-                </div>
+                    {/* Left content */}
+                    <motion.div
+                        initial={shouldReduceMotion ? false : "hidden"}
+                        animate="visible"
+                        variants={{
+                            hidden: {},
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.13,
+                                },
+                            },
+                        }}
+                        className="relative z-10"
+                    >
+                        {/* Availability badge */}
+                        <motion.div variants={fadeUp}>
+                            <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-lime-400/30 bg-lime-400/10 px-4 py-2">
+                                <span className="relative flex h-2.5 w-2.5">
+                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-400 opacity-60" />
+                                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-lime-400" />
+                                </span>
 
-                <div className="mb-2 flex items-center justify-center gap-2 text-base font-medium text-zinc-600 dark:text-zinc-300 sm:text-lg">
-                    Hey, I&apos;m Isahak 👋
-                </div>
+                                <span className="text-sm font-semibold tracking-wide text-lime-300">
+                                    Available for Freelance Work
+                                </span>
+                            </div>
+                        </motion.div>
 
-                <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.08] tracking-[-0.065em] text-zinc-950 dark:text-white sm:text-6xl md:text-7xl lg:text-[82px]">
-                    Full Stack
-                    <span className="block gradient-text">Web Developer.</span>
-                </h1>
+                        {/* Intro */}
+                        <motion.p
+                            variants={fadeUp}
+                            className="mb-4 text-lg font-medium text-gray-300 sm:text-xl"
+                        >
+                            Hello, I&apos;m
+                        </motion.p>
 
-                <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-600 dark:text-zinc-300 sm:text-base sm:leading-8">
-                    I&apos;m a Full Stack Web Developer with 2+ years of
-                    experience, passionate about creating modern,
-                    responsive and meaningful digital products.
-                </p>
+                        <motion.h1
+                            variants={fadeUp}
+                            className="text-5xl font-black leading-[1.12] tracking-tight text-white sm:text-6xl lg:text-7xl"
+                        >
+                            Isahak
+                            <span className="block text-lime-400">
+                                Ali.
+                            </span>
+                        </motion.h1>
 
-                <div className="relative mt-9 flex h-44 w-44 items-center justify-center sm:mt-10 sm:h-52 sm:w-52">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#75f5ed] via-[#c8b8ff] to-[#ff9ce5] p-[3px] shadow-[0_15px_45px_rgba(110,160,150,0.18)]">
-                        <div className="h-full w-full rounded-full bg-white p-[5px] dark:bg-zinc-900">
-                            <div className="relative h-full w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+                        <motion.div variants={fadeUp}>
+                            <h2 className="mt-7 text-2xl font-bold leading-snug text-white sm:text-3xl">
+                                Full Stack Web Developer
+                                <span className="text-lime-400">.</span>
+                            </h2>
+                        </motion.div>
+
+                        {/* Description */}
+                        <motion.p
+                            variants={fadeUp}
+                            className="mt-6 max-w-xl text-base leading-8 text-gray-300 sm:text-lg"
+                        >
+                            I build modern, responsive, and user-friendly web applications.
+                            With 2+ years of experience, I turn ideas into functional
+                            digital experiences using modern web technologies.
+                        </motion.p>
+
+                        {/* Buttons */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-9 flex flex-wrap items-center gap-4"
+                        >
+                            <Link
+                                href="#projects"
+                                className="group inline-flex items-center gap-3 rounded-xl bg-lime-400 px-7 py-4 text-sm font-bold text-black shadow-lg shadow-lime-400/15 transition duration-300 hover:-translate-y-1 hover:bg-lime-300"
+                            >
+                                Explore My Work
+                                <ArrowRight
+                                    size={18}
+                                    className="transition-transform duration-300 group-hover:translate-x-1"
+                                />
+                            </Link>
+
+                            <Link
+                                href="#contact"
+                                className="inline-flex items-center gap-3 rounded-xl border border-white/25 bg-white/5 px-7 py-4 text-sm font-bold text-white transition duration-300 hover:-translate-y-1 hover:border-lime-400 hover:bg-lime-400/10 hover:text-lime-300"
+                            >
+                                <Mail size={18} />
+                                Contact Me
+                            </Link>
+                        </motion.div>
+
+                        {/* Quick navigation */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-14 border-t border-white/10 pt-7"
+                        >
+                            <p className="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-gray-400">
+                                Explore More
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                                {shortcuts.map((item) => {
+                                    const Icon = item.icon;
+
+                                    return (
+                                        <Link
+                                            key={item.label}
+                                            href={item.href}
+                                            className="group flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-4 transition duration-300 hover:-translate-y-1 hover:border-lime-400/50 hover:bg-lime-400/10"
+                                        >
+                                            <Icon
+                                                size={18}
+                                                className="shrink-0 text-lime-400 transition-transform duration-300 group-hover:scale-110"
+                                            />
+
+                                            <span className="text-sm font-semibold text-gray-200 transition-colors group-hover:text-lime-300">
+                                                {item.label}
+                                            </span>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right profile image */}
+                    <motion.div
+                        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9, x: 30 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        transition={{ duration: 0.9, ease: "easeOut" }}
+                        className="relative mx-auto w-full max-w-[420px]"
+                    >
+                        {/* Image glow */}
+                        <div className="absolute inset-5 rounded-full bg-lime-400/20 blur-[80px]" />
+
+                        {/* Decorative circle */}
+                        <div className="absolute inset-0 scale-[1.08] rounded-full border border-dashed border-lime-400/20" />
+
+                        {/* Image frame */}
+                        <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-lime-400/30 bg-[#111914] p-3 shadow-2xl shadow-black/50">
+                            <div className="relative h-full w-full overflow-hidden rounded-[1.5rem] bg-[#18221b]">
                                 <Image
                                     src="/images/profil.png"
-                                    alt="Md Isahak Ali"
+                                    alt="Isahak Ali - Full Stack Web Developer"
                                     fill
                                     priority
-                                    sizes="(max-width: 640px) 176px, 208px"
+                                    sizes="(max-width: 768px) 85vw, 420px"
                                     className="object-cover object-center"
                                 />
+
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#090d0b]/70 via-transparent to-transparent" />
                             </div>
                         </div>
-                    </div>
 
-                    <div className="absolute -right-3 top-5 flex h-10 w-10 items-center justify-center rounded-2xl border border-white bg-white/90 text-[#75c94a] shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
-                        <Sparkles size={19} />
-                    </div>
+                        {/* Floating developer badge */}
+                        <motion.div
+                            animate={
+                                shouldReduceMotion
+                                    ? undefined
+                                    : { y: [0, -10, 0] }
+                            }
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute -left-5 top-12 flex items-center gap-3 rounded-2xl border border-white/15 bg-[#151d17] px-4 py-3 shadow-xl sm:-left-10"
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-lime-400/15 text-lime-400">
+                                <Code2 size={22} />
+                            </div>
+
+                            <div>
+                                <p className="text-sm font-bold text-white">
+                                    Clean Code
+                                </p>
+                                <p className="text-xs text-gray-400">
+                                    Modern Development
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Floating experience badge */}
+                        <motion.div
+                            animate={
+                                shouldReduceMotion
+                                    ? undefined
+                                    : { y: [0, 10, 0] }
+                            }
+                            transition={{
+                                duration: 4.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute -bottom-5 -right-3 flex items-center gap-3 rounded-2xl border border-white/15 bg-[#151d17] px-5 py-4 shadow-xl sm:-right-8"
+                        >
+                            <Sparkles size={25} className="text-lime-400" />
+
+                            <div>
+                                <p className="text-xl font-black text-white">
+                                    2+ Years
+                                </p>
+                                <p className="text-xs font-medium text-gray-400">
+                                    Experience
+                                </p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
 
-                <p className="mt-5 text-lg font-bold text-zinc-900 dark:text-white">
-                    Md Isahak Ali
-                </p>
-
-                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                    Full Stack Web Developer
-                </p>
-
-                <div className="mt-8 flex flex-wrap justify-center gap-3">
-                    <a
-                        href="#projects"
-                        className="inline-flex items-center gap-2 rounded-full bg-[#a3e635] px-6 py-3 text-sm font-semibold text-zinc-950 transition hover:-translate-y-1 hover:bg-[#b5f58a]"
-                    >
-                        Explore Projects <ArrowRight size={17} />
-                    </a>
-
-                    <a
-                        href="#contact"
-                        className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/80 px-6 py-3 text-sm font-semibold text-zinc-800 transition hover:-translate-y-1 hover:border-lime-400 dark:border-zinc-700 dark:bg-zinc-900/80 dark:text-white"
-                    >
-                        Contact Me
-                    </a>
-                </div>
-
-                <nav
-                    aria-label="Quick navigation"
-                    className="mt-7 grid w-full max-w-[620px] grid-cols-3 gap-2 sm:grid-cols-5 sm:gap-3"
+                {/* Scroll indicator */}
+                <motion.div
+                    initial={shouldReduceMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className="mt-20 hidden items-center justify-center gap-3 text-gray-400 md:flex"
                 >
-                    {shortcuts.map((item) => {
-                        const Icon = item.icon;
+                    <span className="text-xs font-semibold uppercase tracking-[0.25em]">
+                        Scroll to explore
+                    </span>
 
-                        return (
-                            <a
-                                key={item.label}
-                                href={item.href}
-                                className="group flex min-h-[76px] flex-col items-center justify-center gap-2 rounded-2xl border border-zinc-200/90 bg-white/75 px-3 py-3 shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-lime-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900/75"
-                            >
-                                <Icon
-                                    size={18}
-                                    style={{ color: item.color }}
-                                    className="transition-transform duration-300 group-hover:scale-110"
-                                />
-                                <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-200">
-                                    {item.label}
-                                </span>
-                            </a>
-                        );
-                    })}
-                </nav>
-            </div>
-
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -bottom-9 left-1/2 -z-0 -translate-x-1/2 select-none whitespace-nowrap text-[18vw] font-black leading-none tracking-[-0.09em] text-zinc-900/[0.035] dark:text-white/[0.035]"
-            >
-                IS AHAK
+                    <ArrowDown size={16} className="animate-bounce text-lime-400" />
+                </motion.div>
             </div>
         </section>
     );

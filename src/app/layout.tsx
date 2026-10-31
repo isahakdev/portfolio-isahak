@@ -7,7 +7,7 @@ import ThemeProvider from "@/components/layout/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import FluidBackground from "@/components/effects/FluidBackground";
 import CursorFollower from "@/components/effects/CursorFollower";
-import FloatingChatbot from "@/components/sections/FloatingChatbot";
+import PortfolioChatbot from "@/components/sections/PortfolioChatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,7 +44,7 @@ export default function RootLayout({
             <main>{children}</main>
           </div>
 
-          <FloatingChatbot />
+          <PortfolioChatbot />
         </ThemeProvider>
       </body>
     </html>
