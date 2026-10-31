@@ -23,6 +23,8 @@ type Topic =
     | "contact"
     | "email"
     | "whatsapp"
+    | "linkedin"
+    | "github"
     | "projects"
     | "skills"
     | "about"
@@ -83,12 +85,6 @@ const replies: Record<string, string[]> = {
         "I'm listening. Let's figure it out together.",
         "Tell me what happened. I'll try my best to help.",
     ],
-    confused: [
-        "Could you explain what you mean?",
-        "Hmm! I might be missing something. Tell me a little more.",
-        "I didn't quite catch that. Could you rephrase it?",
-        "I'm listening! Give me a little more context.",
-    ],
     thanks: [
         "You're most welcome! 💚",
         "Anytime! Happy to help. 😊",
@@ -121,6 +117,11 @@ const replies: Record<string, string[]> = {
         "You're right! I shouldn't keep repeating myself.",
         "Got it! Let me respond differently this time.",
     ],
+};
+
+const SOCIAL_LINKS = {
+    linkedin: "https://www.linkedin.com/in/md-isahak-ali/",
+    github: "https://github.com/isahakdev",
 };
 
 function normalize(value: string): string {
@@ -160,6 +161,7 @@ function getReply(
         return result("Please type something so we can chat! 😊");
     }
 
+    // English language preference
     if (
         has(text, [
             "speak english",
@@ -176,6 +178,7 @@ function getReply(
         return result("Of course! I'll speak only English from now on. 😊");
     }
 
+    // Repeat complaint
     if (
         has(text, [
             "same answer",
@@ -192,6 +195,65 @@ function getReply(
         return result(randomReply("repeat"), "complaint");
     }
 
+    // LinkedIn
+    if (
+        exact(text, [
+            "linkedin",
+            "linked in",
+            "linkedln",
+            "linkedin profile",
+            "linkedin account",
+        ]) ||
+        has(text, [
+            "linkedin link",
+            "linkedin url",
+            "linkedin profile link",
+            "your linkedin",
+            "his linkedin",
+            "what linkedin",
+            "isahak linkedin",
+            "linkedin address",
+            "linkedin id",
+            "linkedin dao",
+            "linkedin please",
+        ])
+    ) {
+        return result(
+            `Isahak Ali\n${SOCIAL_LINKS.linkedin}`,
+            "linkedin"
+        );
+    }
+
+    // GitHub
+    if (
+        exact(text, [
+            "github",
+            "git hub",
+            "github profile",
+            "github account",
+        ]) ||
+        has(text, [
+            "github link",
+            "github url",
+            "github profile link",
+            "your github",
+            "his github",
+            "isahak github",
+            "github repository",
+            "github repos",
+            "github address",
+            "github id",
+            "github dao",
+            "github please",
+        ])
+    ) {
+        return result(
+            `Isahak Ali\n${SOCIAL_LINKS.github}`,
+            "github"
+        );
+    }
+
+    // Email preference
     if (
         has(text, [
             "not email",
@@ -208,16 +270,30 @@ function getReply(
         );
     }
 
-    if (exact(text, ["only email", "email only", "just email", "only mail", "just mail"])) {
+    if (
+        exact(text, [
+            "only email",
+            "email only",
+            "just email",
+            "only mail",
+            "just mail",
+        ])
+    ) {
         return result(
             "Sure! Here is only Isahak's email address:\n\n📧 mdisahakali354@gmail.com",
             "email"
         );
     }
 
+    // WhatsApp
     if (
         exact(text, ["whatsapp", "whatapp", "whats app", "wa"]) ||
-        has(text, ["whatsapp number", "whatsapp no", "whatsapp contact", "whatsapp dao"])
+        has(text, [
+            "whatsapp number",
+            "whatsapp no",
+            "whatsapp contact",
+            "whatsapp dao",
+        ])
     ) {
         return result(
             "Sure! 😊 You can contact Isahak on WhatsApp:\n\n📱 01328613789",
@@ -225,9 +301,17 @@ function getReply(
         );
     }
 
+    // Email
     if (
         exact(text, ["email", "mail", "e mail"]) ||
-        has(text, ["email address", "email id", "his email", "your email", "email dao", "email please"])
+        has(text, [
+            "email address",
+            "email id",
+            "his email",
+            "your email",
+            "email dao",
+            "email please",
+        ])
     ) {
         return result(
             "You can email Isahak here:\n\n📧 mdisahakali354@gmail.com",
@@ -237,7 +321,13 @@ function getReply(
 
     if (
         previousTopic === "email" &&
-        has(text, ["i got email", "got email", "got it", "received email", "i have email"])
+        has(text, [
+            "i got email",
+            "got email",
+            "got it",
+            "received email",
+            "i have email",
+        ])
     ) {
         return result(
             "Great! 😊 Were you able to contact Isahak successfully?",
@@ -255,9 +345,16 @@ function getReply(
         );
     }
 
+    // Contact details
     if (
         exact(text, ["contact"]) ||
-        has(text, ["contact details", "phone number", "mobile number", "contact info", "number dao"])
+        has(text, [
+            "contact details",
+            "phone number",
+            "mobile number",
+            "contact info",
+            "number dao",
+        ])
     ) {
         return result(
             "Here are Isahak's contact details:\n\n📱 WhatsApp: 01328613789\n📧 Email: mdisahakali354@gmail.com",
@@ -265,15 +362,33 @@ function getReply(
         );
     }
 
+    // Greetings
     if (
         /^(hi+|hai+|hello+|helo+|hey+|heyy+)$/.test(text) ||
-        exact(text, ["good morning", "good afternoon", "good evening", "salam", "assalamu alaikum"])
+        exact(text, [
+            "good morning",
+            "good afternoon",
+            "good evening",
+            "salam",
+            "assalamu alaikum",
+        ])
     ) {
         return result(randomReply("greeting"), "greeting");
     }
 
-    if (has(text, ["how are you", "how r u", "how are u", "how you doing"])) {
-        return result("I'm doing great! 😊 Thanks for asking. How about you?", "mood");
+    // Mood
+    if (
+        has(text, [
+            "how are you",
+            "how r u",
+            "how are u",
+            "how you doing",
+        ])
+    ) {
+        return result(
+            "I'm doing great! 😊 Thanks for asking. How about you?",
+            "mood"
+        );
     }
 
     if (
@@ -290,24 +405,53 @@ function getReply(
         return result(randomReply("fine"), "mood");
     }
 
-    if (has(text, ["i am sad", "im sad", "feeling sad", "not good", "bad day"])) {
+    if (
+        has(text, [
+            "i am sad",
+            "im sad",
+            "feeling sad",
+            "not good",
+            "bad day",
+        ])
+    ) {
         return result(randomReply("badMood"), "mood");
     }
 
-    if (has(text, ["what are you doing", "what r u doing", "what do you do"])) {
+    // Casual conversation
+    if (
+        has(text, [
+            "what are you doing",
+            "what r u doing",
+            "what do you do",
+        ])
+    ) {
         return result(
             "I'm here chatting with you and helping visitors explore Isahak's portfolio! 😄 What about you?"
         );
     }
 
-    if (has(text, ["why did you say", "why you gave", "why did you give"])) {
+    if (
+        has(text, [
+            "why did you say",
+            "why you gave",
+            "why did you give",
+        ])
+    ) {
         return result(
             "Sorry! 😅 I misunderstood what you wanted. Could you tell me what you were expecting?",
             "complaint"
         );
     }
 
-    if (has(text, ["like me", "love you", "miss you", "i like you", "you are nice"])) {
+    if (
+        has(text, [
+            "like me",
+            "love you",
+            "miss you",
+            "i like you",
+            "you are nice",
+        ])
+    ) {
         return result(randomReply("compliment"));
     }
 
@@ -315,11 +459,27 @@ function getReply(
         return result(randomReply("joke"), "joke");
     }
 
-    if (has(text, ["bal", "pagol", "stupid", "idiot", "shut up", "ajob"])) {
+    if (
+        has(text, [
+            "bal",
+            "pagol",
+            "stupid",
+            "idiot",
+            "shut up",
+            "ajob",
+        ])
+    ) {
         return result(randomReply("angry"), "complaint");
     }
 
-    if (has(text, ["i didn't ask", "i did not ask", "not what i asked", "i don't want that"])) {
+    if (
+        has(text, [
+            "i didn't ask",
+            "i did not ask",
+            "not what i asked",
+            "i don't want that",
+        ])
+    ) {
         return result(
             "Sorry about that! I misunderstood you. Tell me what you actually wanted, and I'll try to help.",
             "complaint"
@@ -336,13 +496,21 @@ function getReply(
         );
     }
 
-    if (has(text, ["what can you do", "how can you help", "what can i ask"])) {
+    // Help
+    if (
+        has(text, [
+            "what can you do",
+            "how can you help",
+            "what can i ask",
+        ])
+    ) {
         return result(
-            "You can ask me about Isahak's projects, skills, experience, services and contact details. Or we can just have a casual chat! 😊",
+            "You can ask me about Isahak's projects, skills, experience, services, LinkedIn, GitHub and contact details. Or we can just have a casual chat! 😊",
             "help"
         );
     }
 
+    // Projects
     if (has(text, ["bazar dor", "bazardor"])) {
         return result(
             "Bazar Dor is one of Isahak's featured projects. 🚀 You can explore it in the Projects section.",
@@ -364,35 +532,92 @@ function getReply(
         );
     }
 
-    if (has(text, ["skill", "skills", "technology", "tech stack", "react", "nextjs", "next js", "javascript", "typescript", "python", "mongodb", "tailwind"])) {
+    // Skills
+    if (
+        has(text, [
+            "skill",
+            "skills",
+            "technology",
+            "tech stack",
+            "react",
+            "nextjs",
+            "next js",
+            "javascript",
+            "typescript",
+            "python",
+            "mongodb",
+            "tailwind",
+        ])
+    ) {
         return result(
             "Isahak's technology stack includes:\n\n💻 Frontend: HTML, CSS, Tailwind CSS, JavaScript, TypeScript, React and Next.js.\n\n⚙️ Backend: Node.js and Python.\n\n🗄️ Database: MongoDB.\n\n🛠️ Tools: Git, GitHub, VS Code and Figma.",
             "skills"
         );
     }
 
-    if (has(text, ["experience", "career", "freelancer", "freelance", "how many years", "years of experience"])) {
+    // Experience
+    if (
+        has(text, [
+            "experience",
+            "career",
+            "freelancer",
+            "freelance",
+            "how many years",
+            "years of experience",
+        ])
+    ) {
         return result(
             "Isahak is a Full Stack Web Developer and freelancer with 2+ years of experience. 🚀",
             "experience"
         );
     }
 
-    if (has(text, ["about", "who is isahak", "introduce", "tell me about isahak"])) {
+    // About
+    if (
+        has(text, [
+            "about",
+            "who is isahak",
+            "introduce",
+            "tell me about isahak",
+        ])
+    ) {
         return result(
             "Isahak Ali is a Full Stack Web Developer and freelancer with 2+ years of experience. He enjoys building modern, responsive and meaningful digital experiences. 👋",
             "about"
         );
     }
 
-    if (has(text, ["service", "services", "hire", "hiring", "available", "web development", "website", "developer"])) {
+    // Services
+    if (
+        has(text, [
+            "service",
+            "services",
+            "hire",
+            "hiring",
+            "available",
+            "web development",
+            "website",
+            "developer",
+        ])
+    ) {
         return result(
             "Isahak works with modern web technologies and can discuss your website or full-stack development requirements. You can contact him at 01328613789.",
             "general"
         );
     }
 
-    if (has(text, ["problem", "problems", "issue", "issues", "trouble", "help", "support"])) {
+    // Problems and support
+    if (
+        has(text, [
+            "problem",
+            "problems",
+            "issue",
+            "issues",
+            "trouble",
+            "help",
+            "support",
+        ])
+    ) {
         return result(randomReply("problem"), "help");
     }
 
@@ -404,7 +629,17 @@ function getReply(
         return result(randomReply("goodbye"), "goodbye");
     }
 
-    if (exact(text, ["more", "more details", "tell me more", "explain", "and then", "then"])) {
+    // Follow-up replies
+    if (
+        exact(text, [
+            "more",
+            "more details",
+            "tell me more",
+            "explain",
+            "and then",
+            "then",
+        ])
+    ) {
         const followUps: Record<Topic, string> = {
             general: "Sure! What would you like to know more about? 😊",
             greeting: "So, tell me about yourself! How is your day going?",
@@ -412,11 +647,13 @@ function getReply(
             contact: "You can contact Isahak by WhatsApp at 01328613789 or email at mdisahakali354@gmail.com.",
             email: "Isahak's email is mdisahakali354@gmail.com.",
             whatsapp: "Isahak's WhatsApp number is 01328613789.",
+            linkedin: `Isahak Ali\n${SOCIAL_LINKS.linkedin}`,
+            github: `Isahak Ali\n${SOCIAL_LINKS.github}`,
             projects: "Isahak's featured projects include Bazar Dor, LexiLearn and Personal Portfolio.",
             skills: "Isahak works with React, Next.js, TypeScript, Node.js, Python and MongoDB.",
             about: "Isahak Ali is a Full Stack Web Developer and freelancer.",
             experience: "Isahak has 2+ years of experience as a Full Stack Web Developer.",
-            help: "You can ask about projects, skills, experience, services or contact details.",
+            help: "You can ask about projects, skills, experience, services, LinkedIn, GitHub or contact details.",
             joke: randomReply("joke"),
             complaint: "I'm listening. Tell me what you'd like me to do differently.",
             goodbye: "Feel free to come back anytime!",
@@ -425,14 +662,27 @@ function getReply(
         return result(followUps[previousTopic], previousTopic);
     }
 
-    if (exact(text, ["ok", "okay", "hmm", "hm", "acha", "accha", "alright"])) {
+    if (
+        exact(text, [
+            "ok",
+            "okay",
+            "hmm",
+            "hm",
+            "acha",
+            "accha",
+            "alright",
+        ])
+    ) {
         return result(randomReply("casual"));
     }
 
     if (exact(text, ["what", "how", "who", "why", "when"])) {
-        return result("What would you like to know? 😊 Give me a little more detail and I'll do my best to help.");
+        return result(
+            "What would you like to know? 😊 Give me a little more detail and I'll do my best to help."
+        );
     }
 
+    // Avoid repeating the last response
     const fallback = [
         "I'm listening! 😊 Could you tell me a little more?",
         "That's interesting! What happened next?",
@@ -449,7 +699,9 @@ function getReply(
     let nextReply = randomReply("casual");
 
     for (let attempt = 0; attempt < 10; attempt++) {
-        const candidate = fallback[Math.floor(Math.random() * fallback.length)];
+        const candidate =
+            fallback[Math.floor(Math.random() * fallback.length)];
+
         if (candidate !== lastBotReply) {
             nextReply = candidate;
             break;
@@ -457,6 +709,39 @@ function getReply(
     }
 
     return result(nextReply);
+}
+
+// Make URLs clickable inside chatbot messages
+function MessageText({ text }: { text: string }) {
+    const parts = text.split(
+        /(https?:\/\/[^\s]+)/g
+    );
+
+    return (
+        <>
+            {parts.map((part, index) => {
+                if (/^https?:\/\//.test(part)) {
+                    return (
+                        <a
+                            key={index}
+                            href={part}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="break-all font-medium text-blue-600 underline underline-offset-2 hover:text-blue-700 dark:text-lime-400 dark:hover:text-lime-300"
+                        >
+                            {part}
+                        </a>
+                    );
+                }
+
+                return (
+                    <span key={index} className="whitespace-pre-wrap">
+                        {part}
+                    </span>
+                );
+            })}
+        </>
+    );
 }
 
 export default function PortfolioChatbot() {
@@ -473,7 +758,10 @@ export default function PortfolioChatbot() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+        bottomRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+        });
     }, [messages, typing]);
 
     useEffect(() => {
@@ -499,26 +787,47 @@ export default function PortfolioChatbot() {
 
     useEffect(() => {
         return () => {
-            if (timerRef.current) clearTimeout(timerRef.current);
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
         };
     }, []);
+
+    function closeChat() {
+        setOpen(false);
+        setExpanded(false);
+    }
 
     function sendMessage(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         const userText = input.trim();
+
         if (!userText || typing) return;
 
-        setMessages((prev) => [...prev, { from: "user", text: userText }]);
+        setMessages((prev) => [
+            ...prev,
+            { from: "user", text: userText },
+        ]);
+
         setInput("");
         setTyping(true);
 
-        const reply = getReply(userText, previousTopicRef.current, lastBotReplyRef.current);
+        const reply = getReply(
+            userText,
+            previousTopicRef.current,
+            lastBotReplyRef.current
+        );
+
         previousTopicRef.current = reply.topic;
         lastBotReplyRef.current = reply.text;
 
         timerRef.current = setTimeout(() => {
-            setMessages((prev) => [...prev, { from: "bot", text: reply.text }]);
+            setMessages((prev) => [
+                ...prev,
+                { from: "bot", text: reply.text },
+            ]);
+
             setTyping(false);
             timerRef.current = null;
         }, 450 + Math.random() * 300);
@@ -530,33 +839,35 @@ export default function PortfolioChatbot() {
                 <button
                     type="button"
                     aria-label="Close chat backdrop"
-                    onClick={() => setOpen(false)}
+                    onClick={closeChat}
                     className="fixed inset-0 z-[998] cursor-default bg-black/30 backdrop-blur-[2px] sm:hidden"
                 />
             )}
 
             <div
                 className={`fixed z-[999] flex flex-col transition-all duration-300
-                    ${
-                        open
-                            ? expanded
-                                ? "inset-0 h-[100dvh] w-full rounded-none sm:inset-4 sm:h-[calc(100dvh-2rem)] sm:w-[min(720px,calc(100vw-2rem))] sm:ml-auto sm:rounded-2xl"
-                                : "inset-x-0 bottom-0 h-[min(680px,88dvh)] w-full rounded-t-3xl sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100dvh-3rem))] sm:w-[min(390px,calc(100vw-3rem))] sm:rounded-2xl"
-                            : "bottom-5 right-4 h-14 w-14 sm:bottom-6 sm:right-6"
+                    ${open
+                        ? expanded
+                            ? "inset-0 h-[100dvh] w-full rounded-none sm:inset-4 sm:h-[calc(100dvh-2rem)] sm:w-[min(720px,calc(100vw-2rem))] sm:ml-auto sm:rounded-2xl"
+                            : "inset-x-0 bottom-0 h-[min(680px,88dvh)] w-full rounded-t-3xl sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100dvh-3rem))] sm:w-[min(390px,calc(100vw-3rem))] sm:rounded-2xl"
+                        : "bottom-5 right-4 h-14 w-14 sm:bottom-6 sm:right-6"
                     }`}
             >
                 {open ? (
                     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-t-3xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-700 dark:bg-zinc-950 sm:rounded-2xl">
+
                         {/* Header */}
                         <div className="flex shrink-0 items-center justify-between bg-zinc-900 px-4 py-3.5 text-white sm:px-5">
                             <div className="flex min-w-0 items-center gap-3">
                                 <div className="shrink-0 rounded-full bg-lime-400 p-2 text-black">
                                     <Bot size={21} />
                                 </div>
+
                                 <div className="min-w-0">
                                     <h3 className="truncate text-sm font-semibold">
                                         Hello Assistant
                                     </h3>
+
                                     <p className="flex items-center gap-1.5 text-xs text-lime-400">
                                         <span className="h-1.5 w-1.5 rounded-full bg-lime-400" />
                                         Online
@@ -568,14 +879,23 @@ export default function PortfolioChatbot() {
                                 <button
                                     type="button"
                                     onClick={() => setExpanded(!expanded)}
-                                    aria-label={expanded ? "Minimize chat" : "Expand chat"}
+                                    aria-label={
+                                        expanded
+                                            ? "Minimize chat"
+                                            : "Expand chat"
+                                    }
                                     className="hidden rounded-lg p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white sm:inline-flex"
                                 >
-                                    {expanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+                                    {expanded ? (
+                                        <Minimize2 size={18} />
+                                    ) : (
+                                        <Maximize2 size={18} />
+                                    )}
                                 </button>
+
                                 <button
                                     type="button"
-                                    onClick={() => setOpen(false)}
+                                    onClick={closeChat}
                                     aria-label="Close chat"
                                     className="rounded-lg p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
                                 >
@@ -589,18 +909,18 @@ export default function PortfolioChatbot() {
                             {messages.map((message, index) => (
                                 <div
                                     key={`${index}-${message.from}`}
-                                    className={`flex ${
-                                        message.from === "user" ? "justify-end" : "justify-start"
-                                    }`}
+                                    className={`flex ${message.from === "user"
+                                            ? "justify-end"
+                                            : "justify-start"
+                                        }`}
                                 >
                                     <div
-                                        className={`max-w-[88%] break-words rounded-2xl px-3.5 py-3 text-[13px] leading-relaxed sm:max-w-[85%] sm:px-4 sm:text-sm ${
-                                            message.from === "user"
+                                        className={`max-w-[88%] break-words rounded-2xl px-3.5 py-3 text-[13px] leading-relaxed sm:max-w-[85%] sm:px-4 sm:text-sm ${message.from === "user"
                                                 ? "rounded-br-sm bg-lime-400 text-black"
                                                 : "rounded-bl-sm bg-white text-zinc-800 shadow-sm dark:bg-zinc-800 dark:text-white"
-                                        }`}
+                                            }`}
                                     >
-                                        {message.text}
+                                        <MessageText text={message.text} />
                                     </div>
                                 </div>
                             ))}
@@ -610,11 +930,14 @@ export default function PortfolioChatbot() {
                                     <div className="rounded-2xl bg-white px-4 py-3 text-sm text-zinc-500 shadow-sm dark:bg-zinc-800">
                                         <span className="inline-flex items-center gap-1">
                                             Typing
-                                            <span className="animate-pulse">...</span>
+                                            <span className="animate-pulse">
+                                                ...
+                                            </span>
                                         </span>
                                     </div>
                                 </div>
                             )}
+
                             <div ref={bottomRef} />
                         </div>
 
@@ -626,13 +949,16 @@ export default function PortfolioChatbot() {
                             <input
                                 ref={inputRef}
                                 value={input}
-                                onChange={(e) => setInput(e.target.value)}
+                                onChange={(e) =>
+                                    setInput(e.target.value)
+                                }
                                 placeholder="Type your message..."
                                 aria-label="Type your message"
                                 autoComplete="off"
                                 className="min-w-0 flex-1 rounded-full bg-zinc-100 px-4 py-3 text-base text-zinc-900 outline-none ring-0 placeholder:text-zinc-400 focus:ring-2 focus:ring-lime-400 dark:bg-zinc-800 dark:text-white sm:text-sm"
                                 disabled={typing}
                             />
+
                             <button
                                 type="submit"
                                 disabled={!input.trim() || typing}

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -7,66 +8,124 @@ export default function CursorFollower() {
     const dotRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (
-            window.matchMedia("(pointer: coarse)").matches ||
-            window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ) return;
+        const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+        const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        if (isTouchDevice || prefersReducedMotion) return;
 
         const ring = ringRef.current;
         const dot = dotRef.current;
 
         if (!ring || !dot) return;
 
-        let x = -100;
-        let y = -100;
-        let rx = -100;
-        let ry = -100;
-        let frame = 0;
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
 
-        const move = (e: PointerEvent) => {
-            x = e.clientX;
-            y = e.clientY;
+        let animationFrame = 0;
+        let isVisible = false;
+        let isHovering = false;
 
-            dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-            if (!frame) frame = requestAnimationFrame(animate);
+        const followSpeed = 0.16;
+
+        const animate = () => {
+            ringX += (mouseX - ringX) * followSpeed;
+            ringY += (mouseY - ringY) * followSpeed;
+
+            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+
+            const distance = Math.hypot(mouseX - ringX, mouseY - ringY);
+
+            if (distance > 0.1) {
+                animationFrame = requestAnimationFrame(animate);
+            } else {
+                animationFrame = 0;
+            }
         };
 
-        function animate() {
-            rx += (x - rx) * 0.2;
-            ry += (y - ry) * 0.2;
+        const move = (event: PointerEvent) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
 
-            ring!.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-
-            if (Math.abs(x - rx) > 0.1 || Math.abs(y - ry) > 0.1) {
-                frame = requestAnimationFrame(animate);
-            } else {
-                frame = 0;
+            if (!isVisible) {
+                isVisible = true;
+                ring.classList.add("cursor-visible");
+                dot.classList.add("cursor-visible");
+                ringX = mouseX;
+                ringY = mouseY;
+                ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
             }
-        }
 
-        const hover = (e: PointerEvent) => {
-            const target = e.target;
+            dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+
+            if (!animationFrame) {
+                animationFrame = requestAnimationFrame(animate);
+            }
+        };
+
+        const handleHover = (event: PointerEvent) => {
+            const target = event.target;
+
             const interactive =
                 target instanceof Element &&
-                !!target.closest("a, button, input, textarea");
+                !!target.closest(
+                    "a, button, input, textarea, select, [role='button'], [data-cursor='hover']"
+                );
 
-            ring.classList.toggle("cursor-hover", interactive);
+            if (interactive !== isHovering) {
+                isHovering = interactive;
+                ring.classList.toggle("cursor-hover", interactive);
+                dot.classList.toggle("cursor-hover", interactive);
+            }
         };
 
-        window.addEventListener("pointermove", move);
-        document.addEventListener("pointerover", hover);
+        const handleLeave = () => {
+            isVisible = false;
+            ring.classList.remove("cursor-visible", "cursor-hover");
+            dot.classList.remove("cursor-visible", "cursor-hover");
+            isHovering = false;
+        };
+
+        const handleEnter = () => {
+            isVisible = true;
+            ring.classList.add("cursor-visible");
+            dot.classList.add("cursor-visible");
+        };
+
+        window.addEventListener("pointermove", move, { passive: true });
+        window.addEventListener("pointerout", (event) => {
+            if (!event.relatedTarget) handleLeave();
+        });
+        window.addEventListener("pointerover", handleEnter);
+        document.addEventListener("pointerover", handleHover);
 
         return () => {
-            cancelAnimationFrame(frame);
+            cancelAnimationFrame(animationFrame);
+
             window.removeEventListener("pointermove", move);
-            document.removeEventListener("pointerover", hover);
+            document.removeEventListener("pointerover", handleHover);
+
+            ring.classList.remove("cursor-visible", "cursor-hover");
+            dot.classList.remove("cursor-visible", "cursor-hover");
         };
     }, []);
 
     return (
         <>
-            <div ref={ringRef} className="custom-cursor-ring" />
-            <div ref={dotRef} className="custom-cursor-dot" />
+            <div
+                ref={ringRef}
+                aria-hidden="true"
+                className="custom-cursor-ring"
+            />
+
+            <div
+                ref={dotRef}
+                aria-hidden="true"
+                className="custom-cursor-dot"
+            />
         </>
     );
 }
