@@ -89,7 +89,7 @@ export default function Home() {
 
           <div className="grid gap-5 md:grid-cols-3">
             <div className="premium-card p-7">
-              <p className="text-4xl font-bold">2+</p>
+              <p className="text-4xl font-bold">1+</p>
               <p className="mt-2 text-sm text-muted">
                 Years of experience
               </p>
