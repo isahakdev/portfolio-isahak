@@ -16,26 +16,10 @@ import {
 import { motion, useReducedMotion } from "framer-motion";
 
 const shortcuts = [
-    {
-        label: "About Me",
-        href: "#about",
-        icon: UserRound,
-    },
-    {
-        label: "Projects",
-        href: "#projects",
-        icon: Layers3,
-    },
-    {
-        label: "Skills",
-        href: "#skills",
-        icon: Code2,
-    },
-    {
-        label: "Experience",
-        href: "#experience",
-        icon: BriefcaseBusiness,
-    },
+    { label: "About Me", href: "#about", icon: UserRound },
+    { label: "Projects", href: "#projects", icon: Layers3 },
+    { label: "Skills", href: "#skills", icon: Code2 },
+    { label: "Experience", href: "#experience", icon: BriefcaseBusiness },
 ];
 
 export default function Hero() {
@@ -80,7 +64,6 @@ export default function Hero() {
 
             {/* Main Container */}
             <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-5 pb-20 pt-32 sm:px-8 lg:px-12">
-
                 <div className="grid items-center gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
 
                     {/* Left Content */}
@@ -90,16 +73,13 @@ export default function Hero() {
                         animate="visible"
                         className="relative z-10"
                     >
-
                         {/* Availability Badge */}
                         <motion.div variants={fadeUp}>
                             <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-lime-400/20 bg-lime-400/[0.07] px-4 py-2.5 backdrop-blur-md">
-
                                 <span className="relative flex h-2.5 w-2.5">
                                     {!shouldReduceMotion && (
                                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-400 opacity-50" />
                                     )}
-
                                     <span className="relative h-2.5 w-2.5 rounded-full bg-lime-400" />
                                 </span>
 
@@ -156,7 +136,6 @@ export default function Hero() {
                                 className="group inline-flex items-center gap-3 rounded-xl bg-lime-400 px-7 py-4 text-sm font-bold text-black shadow-lg shadow-lime-400/10 transition-all duration-300 hover:-translate-y-1 hover:bg-lime-300 hover:shadow-xl hover:shadow-lime-400/20"
                             >
                                 Explore My Work
-
                                 <ArrowRight
                                     size={18}
                                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -171,7 +150,6 @@ export default function Hero() {
                                     size={18}
                                     className="transition-transform duration-300 group-hover:scale-110"
                                 />
-
                                 Contact Me
                             </Link>
                         </motion.div>
@@ -199,7 +177,6 @@ export default function Hero() {
                                                 size={18}
                                                 className="shrink-0 text-lime-400 transition-transform duration-300 group-hover:scale-110"
                                             />
-
                                             <span className="text-sm font-semibold text-gray-300 transition-colors duration-300 group-hover:text-lime-300">
                                                 {item.label}
                                             </span>
@@ -224,7 +201,6 @@ export default function Hero() {
                         }}
                         className="relative mx-auto w-full max-w-[420px]"
                     >
-
                         {/* Image Glow */}
                         <div className="absolute inset-5 rounded-full bg-lime-400/20 blur-[90px]" />
 
@@ -233,9 +209,7 @@ export default function Hero() {
 
                         {/* Profile Frame */}
                         <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-lime-400/25 bg-[#111914] p-3 shadow-2xl shadow-black/50">
-
                             <div className="relative h-full w-full overflow-hidden rounded-[1.5rem] bg-[#18221b]">
-
                                 <Image
                                     src="/images/profil.png"
                                     alt="Isahak Ali - Full Stack Web Developer"
@@ -252,9 +226,7 @@ export default function Hero() {
                         {/* Floating Developer Badge */}
                         <motion.div
                             animate={
-                                shouldReduceMotion
-                                    ? undefined
-                                    : { y: [0, -9, 0] }
+                                shouldReduceMotion ? undefined : { y: [0, -9, 0] }
                             }
                             transition={{
                                 duration: 4,
@@ -268,22 +240,15 @@ export default function Hero() {
                             </div>
 
                             <div>
-                                <p className="text-sm font-bold text-white">
-                                    Clean Code
-                                </p>
-
-                                <p className="text-xs text-gray-400">
-                                    Modern Development
-                                </p>
+                                <p className="text-sm font-bold text-white">Clean Code</p>
+                                <p className="text-xs text-gray-400">Modern Development</p>
                             </div>
                         </motion.div>
 
                         {/* Floating Experience Badge */}
                         <motion.div
                             animate={
-                                shouldReduceMotion
-                                    ? undefined
-                                    : { y: [0, 10, 0] }
+                                shouldReduceMotion ? undefined : { y: [0, 10, 0] }
                             }
                             transition={{
                                 duration: 4.5,
@@ -295,10 +260,7 @@ export default function Hero() {
                             <Sparkles size={25} className="text-lime-400" />
 
                             <div>
-                                <p className="text-xl font-black text-white">
-                                    1+ Years
-                                </p>
-
+                                <p className="text-xl font-black text-white">1+ Years</p>
                                 <p className="text-xs font-medium text-gray-400">
                                     Experience
                                 </p>

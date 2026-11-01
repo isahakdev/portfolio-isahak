@@ -1450,3 +1450,629 @@ img {
     display: none;
   }
 }
+.marqueeSection {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(126, 34, 206, 0.12),
+      transparent 60%),
+    #160d1d;
+}
+
+.ribbon {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(100deg,
+      rgba(190, 35, 125, 0.65),
+      rgba(126, 25, 170, 0.85));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ribbonOne {
+  transform: rotate(6deg);
+  z-index: 2;
+}
+
+.ribbonTwo {
+  transform: rotate(-6deg);
+  z-index: 1;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 55px;
+  white-space: nowrap;
+}
+
+.track span {
+  color: white;
+  font-family: monospace;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.trackLeft {
+  animation: moveLeft 28s linear infinite;
+}
+
+.trackRight {
+  animation: moveRight 28s linear infinite;
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .marqueeSection {
+    height: 220px;
+  }
+
+  .ribbon {
+    height: 55px;
+  }
+
+  .track {
+    gap: 35px;
+  }
+
+  .track span {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
+.marqueeSection {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at center,
+      rgba(130, 35, 155, 0.12),
+      transparent 65%),
+    #160d1d;
+}
+
+.ribbon {
+  position: absolute;
+  left: -15%;
+  width: 130%;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  background: linear-gradient(100deg,
+      rgba(173, 42, 125, 0.72),
+      rgba(108, 22, 156, 0.88));
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ribbonOne {
+  transform: rotate(6deg);
+  z-index: 2;
+}
+
+.ribbonTwo {
+  transform: rotate(-6deg);
+  z-index: 1;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+  width: max-content;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.track span {
+  color: #fff;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.forward {
+  animation: marqueeForward 35s linear infinite;
+}
+
+.reverse {
+  animation: marqueeReverse 35s linear infinite;
+}
+
+@keyframes marqueeForward {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeReverse {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .marqueeSection {
+    height: 230px;
+  }
+
+  .ribbon {
+    height: 58px;
+  }
+
+  .track {
+    gap: 35px;
+  }
+
+  .track span {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marqueeSection {
+    height: 190px;
+  }
+
+  .ribbon {
+    height: 48px;
+  }
+
+  .track span {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .forward,
+  .reverse {
+    animation: none;
+  }
+}
+.marqueeSection {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center,
+      rgba(130, 35, 155, 0.12),
+      transparent 65%),
+    #160d1d;
+}
+
+.ribbon {
+  position: absolute;
+  left: -15%;
+  width: 130%;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  background: linear-gradient(100deg,
+      rgba(173, 42, 125, 0.72),
+      rgba(108, 22, 156, 0.88));
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ribbonOne {
+  transform: rotate(6deg);
+  z-index: 2;
+}
+
+.ribbonTwo {
+  transform: rotate(-6deg);
+  z-index: 1;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+  width: max-content;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.track span {
+  color: #fff;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.forward {
+  animation: marqueeForward 35s linear infinite;
+}
+
+.reverse {
+  animation: marqueeReverse 35s linear infinite;
+}
+
+@keyframes marqueeForward {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeReverse {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .marqueeSection {
+    height: 230px;
+  }
+
+  .ribbon {
+    height: 58px;
+  }
+
+  .track {
+    gap: 35px;
+  }
+
+  .track span {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marqueeSection {
+    height: 190px;
+  }
+
+  .ribbon {
+    height: 48px;
+  }
+
+  .track span {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .forward,
+  .reverse {
+    animation: none;
+  }
+}
+/* Diagonal Marquee */
+
+.diagonal-marquee {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle, rgba(130, 35, 155, 0.15), transparent 65%),
+    #160d1d;
+}
+
+.marquee-ribbon {
+  position: absolute;
+  left: -15%;
+  width: 130%;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(100deg, #ad2a7d, #6c169c);
+}
+
+.marquee-ribbon-one {
+  transform: rotate(6deg);
+  z-index: 2;
+}
+
+.marquee-ribbon-two {
+  transform: rotate(-6deg);
+  z-index: 1;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+  width: max-content;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.marquee-track span {
+  color: white;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.marquee-forward {
+  animation: marqueeForward 35s linear infinite;
+}
+
+.marquee-reverse {
+  animation: marqueeReverse 35s linear infinite;
+}
+
+@keyframes marqueeForward {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeReverse {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .diagonal-marquee {
+    height: 230px;
+  }
+
+  .marquee-ribbon {
+    height: 58px;
+  }
+
+  .marquee-track {
+    gap: 35px;
+  }
+
+  .marquee-track span {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .diagonal-marquee {
+    height: 190px;
+  }
+
+  .marquee-ribbon {
+    height: 48px;
+  }
+
+  .marquee-track span {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .marquee-forward,
+  .marquee-reverse {
+    animation: none;
+  }
+}
+/* Diagonal Infinite Marquee */
+
+.diagonal-marquee {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #160d20;
+  isolation: isolate;
+}
+
+.diagonal-marquee::before {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: #9b1c91;
+  filter: blur(150px);
+  opacity: 0.25;
+  border-radius: 50%;
+}
+
+.marquee-ribbon {
+  position: absolute;
+  left: -30%;
+  width: 160%;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(90deg,
+      #7117a8,
+      #bd278c,
+      #7519a6);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ribbon-one {
+  transform: rotate(7deg);
+  z-index: 2;
+}
+
+.ribbon-two {
+  transform: rotate(-7deg);
+  z-index: 1;
+  background: linear-gradient(90deg,
+      #a51a9b,
+      #6416a5,
+      #a51a9b);
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.marquee-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding-right: 28px;
+  color: #fff;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.marquee-track b {
+  color: #ffc4f4;
+  font-size: 28px;
+}
+
+.track-left {
+  animation: move-left 28s linear infinite;
+}
+
+.track-right {
+  animation: move-right 28s linear infinite;
+}
+
+@keyframes move-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes move-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .diagonal-marquee {
+    height: 260px;
+  }
+
+  .marquee-ribbon {
+    height: 62px;
+  }
+
+  .marquee-track span {
+    font-size: 18px;
+    gap: 18px;
+    padding-right: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .diagonal-marquee {
+    height: 210px;
+  }
+
+  .marquee-ribbon {
+    height: 50px;
+  }
+
+  .marquee-track span {
+    font-size: 14px;
+    gap: 12px;
+    padding-right: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}

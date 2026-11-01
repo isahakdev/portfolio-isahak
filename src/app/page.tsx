@@ -1,5 +1,7 @@
 
 import Hero from "@/components/sections/Hero";
+import DiagonalMarquee from "@/components/sections/DiagonalMarquee";
+
 import {
   ArrowUpRight,
   Code2,
@@ -67,7 +69,11 @@ const skillGroups = [
 export default function Home() {
   return (
     <div className="page-background overflow-hidden">
+      {/* HERO */}
       <Hero />
+
+      {/* DIAGONAL MARQUEE */}
+      <DiagonalMarquee />
 
       {/* ABOUT */}
       <section id="about" className="section-padding">
@@ -77,7 +83,9 @@ export default function Home() {
 
             <h2 className="section-title">
               Turning ideas into
-              <span className="gradient-text"> digital reality.</span>
+              <span className="gradient-text">
+                {" "}digital reality.
+              </span>
             </h2>
 
             <p className="section-description">
@@ -119,11 +127,15 @@ export default function Home() {
       >
         <div className="container-custom">
           <div className="section-heading">
-            <span className="section-label">Selected Work</span>
+            <span className="section-label">
+              Selected Work
+            </span>
 
             <h2 className="section-title">
               Projects I&apos;ve
-              <span className="gradient-text"> worked on.</span>
+              <span className="gradient-text">
+                {" "}worked on.
+              </span>
             </h2>
 
             <p className="section-description">
@@ -187,11 +199,15 @@ export default function Home() {
       <section id="skills" className="section-padding">
         <div className="container-custom">
           <div className="section-heading">
-            <span className="section-label">My Skills</span>
+            <span className="section-label">
+              My Skills
+            </span>
 
             <h2 className="section-title">
               Technologies I
-              <span className="gradient-text"> work with.</span>
+              <span className="gradient-text">
+                {" "}work with.
+              </span>
             </h2>
 
             <p className="section-description">
@@ -212,7 +228,10 @@ export default function Home() {
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {group.skills.map((skill) => (
-                    <span key={skill} className="tech-tag">
+                    <span
+                      key={skill}
+                      className="tech-tag"
+                    >
                       {skill}
                     </span>
                   ))}
@@ -230,11 +249,15 @@ export default function Home() {
       >
         <div className="container-custom">
           <div className="section-heading">
-            <span className="section-label">Experience</span>
+            <span className="section-label">
+              Experience
+            </span>
 
             <h2 className="section-title">
               Growing through
-              <span className="gradient-text"> experience.</span>
+              <span className="gradient-text">
+                {" "}experience.
+              </span>
             </h2>
 
             <p className="section-description">
@@ -275,11 +298,15 @@ export default function Home() {
             <div className="soft-glow soft-glow-purple -bottom-40 -left-20" />
 
             <div className="relative max-w-3xl">
-              <span className="section-label">Get In Touch</span>
+              <span className="section-label">
+                Get In Touch
+              </span>
 
               <h2 className="mt-6 text-4xl font-bold leading-tight tracking-[-0.055em] sm:text-6xl">
                 Have a project in mind?
-                <span className="gradient-text"> Let&apos;s talk.</span>
+                <span className="gradient-text">
+                  {" "}Let&apos;s talk.
+                </span>
               </h2>
 
               <p className="mt-6 max-w-xl leading-8 text-muted">
