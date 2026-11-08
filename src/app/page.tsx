@@ -1,6 +1,5 @@
 
 import Hero from "@/components/sections/Hero";
-import DiagonalMarquee from "@/components/sections/DiagonalMarquee";
 
 import {
   ArrowUpRight,
@@ -69,17 +68,18 @@ const skillGroups = [
 export default function Home() {
   return (
     <div className="page-background overflow-hidden">
-      {/* HERO */}
+
+      {/* HERO SECTION */}
       <Hero />
 
-      {/* DIAGONAL MARQUEE */}
-      <DiagonalMarquee />
-
-      {/* ABOUT */}
+      {/* ABOUT SECTION */}
       <section id="about" className="section-padding">
         <div className="container-custom">
+
           <div className="section-heading">
-            <span className="section-label">About Me</span>
+            <span className="section-label">
+              About Me
+            </span>
 
             <h2 className="section-title">
               Turning ideas into
@@ -96,8 +96,9 @@ export default function Home() {
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
+
             <div className="premium-card p-7">
-              <p className="text-4xl font-bold">1+</p>
+              <p className="text-4xl font-bold">2+</p>
               <p className="mt-2 text-sm text-muted">
                 Years of experience
               </p>
@@ -116,16 +117,18 @@ export default function Home() {
                 Web technologies
               </p>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* PROJECTS */}
+      {/* PROJECTS SECTION */}
       <section
         id="projects"
         className="section-padding bg-(--surface)"
       >
         <div className="container-custom">
+
           <div className="section-heading">
             <span className="section-label">
               Selected Work
@@ -145,12 +148,15 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
             {projects.map((project) => (
               <article
                 key={project.number}
                 className="premium-card group overflow-hidden"
               >
+
                 <div className="relative flex aspect-16/10 items-center justify-center overflow-hidden bg-gradient-to-br from-[#d9fbf2] via-[#e8e5ff] to-[#ffe2ef]">
+
                   <span className="text-4xl font-bold tracking-tighter text-slate-800/70 transition duration-500 group-hover:scale-110 sm:text-5xl">
                     {project.name}
                   </span>
@@ -158,9 +164,11 @@ export default function Home() {
                   <span className="absolute left-5 top-5 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-slate-700 backdrop-blur">
                     {project.number}
                   </span>
+
                 </div>
 
                 <div className="p-6">
+
                   <p className="text-xs font-semibold uppercase tracking-widest text-(--primary-strong)">
                     {project.category}
                   </p>
@@ -188,16 +196,19 @@ export default function Home() {
                     Project showcase
                     <ArrowUpRight size={16} />
                   </div>
+
                 </div>
               </article>
             ))}
+
           </div>
         </div>
       </section>
 
-      {/* SKILLS */}
+      {/* SKILLS SECTION */}
       <section id="skills" className="section-padding">
         <div className="container-custom">
+
           <div className="section-heading">
             <span className="section-label">
               My Skills
@@ -217,11 +228,13 @@ export default function Home() {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
+
             {skillGroups.map((group) => (
               <div
                 key={group.title}
                 className="premium-card p-7"
               >
+
                 <h3 className="text-lg font-bold">
                   {group.title}
                 </h3>
@@ -236,18 +249,21 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
+
               </div>
             ))}
+
           </div>
         </div>
       </section>
 
-      {/* EXPERIENCE */}
+      {/* EXPERIENCE SECTION */}
       <section
         id="experience"
         className="section-padding bg-(--surface)"
       >
         <div className="container-custom">
+
           <div className="section-heading">
             <span className="section-label">
               Experience
@@ -267,7 +283,9 @@ export default function Home() {
           </div>
 
           <div className="premium-card p-7 sm:p-10">
+
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
               <div>
                 <p className="text-sm font-semibold text-(--primary-strong)">
                   Professional Journey
@@ -285,19 +303,24 @@ export default function Home() {
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-(--surface-secondary)">
                 <Code2 size={28} />
               </div>
+
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* CONTACT SECTION */}
       <section id="contact" className="section-padding">
         <div className="container-custom">
+
           <div className="relative overflow-hidden rounded-[32px] border border-(--card-border) bg-(--surface) p-8 sm:p-14 lg:p-20">
+
             <div className="soft-glow soft-glow-cyan -right-20 -top-40" />
             <div className="soft-glow soft-glow-purple -bottom-40 -left-20" />
 
             <div className="relative max-w-3xl">
+
               <span className="section-label">
                 Get In Touch
               </span>
@@ -315,7 +338,7 @@ export default function Home() {
               </p>
 
               <a
-                href="mailto:mdisahakali354@gmail.com"
+                href="mailto:isahak.seo@gmail.com"
                 className="btn-primary mt-9"
               >
                 Send Me an Email
@@ -323,6 +346,7 @@ export default function Home() {
               </a>
 
               <div className="mt-10 flex flex-wrap gap-5 text-sm text-muted">
+
                 <a
                   href="https://github.com/isahakdev"
                   target="_blank"
@@ -349,6 +373,7 @@ export default function Home() {
                 >
                   WhatsApp
                 </a>
+
               </div>
             </div>
           </div>
@@ -358,6 +383,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-(--border) py-8">
         <div className="container-custom flex flex-col items-center justify-between gap-4 text-sm text-muted sm:flex-row">
+
           <p>© Isahak Ali. All rights reserved.</p>
 
           <p>Designed &amp; built with care.</p>
@@ -369,8 +395,10 @@ export default function Home() {
             Back to top
             <ArrowUpRight size={15} />
           </a>
+
         </div>
       </footer>
+
     </div>
   );
 }
